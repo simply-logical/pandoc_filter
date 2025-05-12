@@ -1,3 +1,5 @@
+-- pandoc -f latex+raw_tex -t markdown --lua-filter=filter_latex.lua test.tex -o test.md
+
 -- Match \customidx{...} and extract the argument
 function replace_customidx(text)
   return text:gsub('\\customidx%s*{(.-)}', '{{< indexer add %1 >}}')  -- %s*%b

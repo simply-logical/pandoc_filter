@@ -7,13 +7,13 @@ Custom pandoc filters for converting LaTeX to quarto markdown.
 To convert:
 
 ```bash
-pandoc -f latex+raw_tex -t markdown --lua-filter=filter.lua test.tex -o test.md
+pandoc test.tex -f latex+latex_macros -t markdown --lua-filter=filter_markdown.lua --wrap=preserve -o test.md
 ```
 
 To see the pandoc abstract syntax tree (AST):
 
 ```bash
-pandoc -f latex+raw_tex -t native test.tex -o test.txt
+pandoc test.tex -f latex+raw_tex -t native -o test.txt
 ```
 
 ## Filters List
@@ -21,6 +21,15 @@ pandoc -f latex+raw_tex -t native test.tex -o test.txt
 ### `filter_latex.lua`
 
 Replaces LaTeX `\customidx{param}` with markdown `{{< indexer add param >}}`.
+
+### `filter_markdown.lua`
+
+Replaces `mlind` and `mldef` LaTeX commands with the corresponding markdown syntax.
+
+IMPORTANT: The following code needs to be injected into the LaTeX file preamble for the filter to work:
+```latex
+\input{filter_markdown.tex}
+```
 
 ## Resources
 

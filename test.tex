@@ -2,6 +2,10 @@
 
 \newcommand{\custom}[1]{$\rightarrow$ #1 $\leftarrow$}
 
+%%%%%%%%%% inject %%%%%%%%%%%
+\input{filter_markdown.tex} %
+%%%%%%%%%% inject %%%%%%%%%%%
+
 \begin{document}
 
 \section{Test}
@@ -14,5 +18,115 @@ More text. %
 \emph{Emph}. %
 \custom{text}. %
 Chapter~\ref{ch:label}. %
+
+\section{ML Index}
+
+\subsection{mlind}
+
+\verb|\mlind{term}|:
+\mlind{term} \
+%\verb|...{{< indexer add 'term' idxdisplay='' >}}...|
+
+\verb|\mlind[term1]{term2}|:
+\mlind[term1]{term2} \
+%\verb|...{{< indexer add 'term1' idxdisplay='term2' >}}...|
+
+\subsection{mlindI}
+
+\verb|\mlindi{term}|:
+\mlindi{term} \
+%\verb|...{{< indexer add 'term' idxdisplay='' >}}...|
+
+\verb|\mlindi[term1]{term2}|:
+\mlindi[term1]{term2} \
+%\verb|...{{< indexer add 'term2' idxdisplay='' idxsortkey='term1' >}}...|
+
+\subsection{mlindII}
+
+\verb|\mlindii{quadratic}{optimisation}|:
+\mlindii{quadratic}{optimisation} \
+%\verb|...{{< indexer add 'optimisation' idxdisplay='quadratic optimisation' idxnesting='quadratic' >}}...|
+
+\subsection{mlindIII}
+
+\verb|\mlindiii{quadratic}{optimisation}|:
+\mlindiii{quadratic}{optimisation} \
+%\verb|...{{< indexer add 'optimisation' idxdisplay='quadratic' idxnesting='quadratic' >}}...|
+
+\subsection{mlindIV}
+
+\verb|\mlindiv{support vector machine}{SVM}|:
+\mlindiv{support vector machine}{SVM} \
+%\verb|...{{< indexer add 'support vector machine' idxdisplay='' >}} {{< indexer add 'SVM' idxdisplay='(SVM)' idxsee='support vector machine' >}}...|
+
+\subsection{mlindIV}
+
+\verb|\mlindv{predicates}{first-order logic}|:
+\mlindv{predicates}{first-order logic} \
+%\verb|...{{< indexer add 'predicates' idxdisplay='' idxsee='first-order logic' >}} {{< indexer add 'first-order logic' >}}...|
+
+\section{ML Definition}
+
+\subsection{mldef}
+
+\verb|\mldef{term}|:
+\mldef{term} \
+
+\verb|\mldef[term1]{term2}|:
+\mldef[term1]{term2} \
+
+\subsection{mldefI}
+
+\verb|\mldefi{term}|:
+\mldefi{term} \
+
+\verb|\mldefi[term1]{term2}|:
+\mldefi[term1]{term2} \
+
+\subsection{mldefII}
+
+\verb|\mldefii{quadratic}{optimisation}|:
+\mldefii{quadratic}{optimisation} \
+
+\subsection{mldefIII}
+
+\verb|\mldefiii{quadratic}{optimisation}|:
+\mldefiii{quadratic}{optimisation} \
+
+\subsection{mldefIV}
+
+\verb|\mldefiv{support vector machine}{SVM}|:
+\mldefiv{support vector machine}{SVM} \
+
+\subsection{mldefIV}
+
+\verb|\mldefv{predicates}{first-order logic}|:
+\mldefv{predicates}{first-order logic} \
+
+\section{ML Reference}
+
+\subsection{mlref}
+
+\verb|\mlref{term}|:
+\mlref{term}
+
+\verb|\mlref{other}{term}|:
+\mlref[other]{term}
+
+\subsection{mlrefi}
+
+\verb|\mlrefi{term}|:
+\mlrefi{term}
+
+\verb|\mlrefi{other}{term}|:
+\mlrefi[other]{term}
+
+\subsection{mlrefii}
+
+\verb|\mlrefii{term}|:
+\mlrefii{term}
+
+\verb|\mlrefii{other}{term}|:
+\mlrefii[other]{term}
 
 \end{document}

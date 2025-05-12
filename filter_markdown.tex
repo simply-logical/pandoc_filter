@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% mlind %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\mlind}[2][same]{%
+\ifstrequal{#1}{same}{\verb|{{< indexer add '#2' idxdisplay='' >}}|}{\verb|{{< indexer add '#1' idxdisplay='#2' >}}|}%
+}
+
+\renewcommand{\mlindi}[2][same]{%
+\ifstrequal{#1}{same}{\verb|{{< indexer add '#2' idxdisplay='' >}}|}{\verb|{{< indexer add '#2' idxdisplay='' idxsortkey='#1' >}}|}%
+}
+
+\renewcommand{\mlindii}[2]{%
+\verb|{{< indexer add '#2' idxdisplay='#1 #2' idxnesting='#1' >}}|
+}
+
+\renewcommand{\mlindiii}[2]{%
+\verb|{{< indexer add '#2' idxdisplay='#1' idxnesting='#1' >}}|
+}
+
+\renewcommand{\mlindiv}[2]{%
+\verb|{{< indexer add '#1' idxdisplay='' >}} {{< indexer add '#2' idxdisplay='(#2)' idxsee='#1' >}}|
+} 
+
+\renewcommand{\mlindv}[2]{%
+\verb|{{< indexer add '#1' idxdisplay='' idxsee='#2' >}} {{< indexer add '#2' >}}|
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% mldef %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\mldef}[2][same]{%
+\ifstrequal{#1}{same}{\verb|{{< definer '#2' defstyle=mldefstyle defindex='' idxstyle=defstyle >}}|}{\verb|{{< definer '#2' defstyle=mldefstyle defindex='#1' idxstyle=defstyle >}}|}%
+}
+
+\renewcommand{\mldefi}[2][same]{%
+\ifstrequal{#1}{same}{\verb|{{< definer '#2' defstyle=mldefstyle defindex='' idxstyle=defstyle >}}|}{\verb|{{< definer '#2' defstyle=mldefstyle defindex='' idxsortkey='#1' idxstyle=defstyle >}}|}%
+}
+
+\renewcommand{\mldefii}[2]{%
+\verb|{{< definer '#1 #2' defstyle=mldefstyle defindex='#2' idxnesting='#1' idxstyle=defstyle >}}|%
+}
+
+\renewcommand{\mldefiii}[2]{%
+\verb|{{< definer '#1' defstyle=mldefstyle defindex='#2' idxnesting='#1' idxstyle=defstyle >}}|%
+}
+
+\renewcommand{\mldefiv}[2]{%
+\verb|{{< definer '#1' defstyle=mldefstyle defindex='' idxstyle=defstyle >}} ({{< definer '#2' defstyle=mldefstyle defindex='' idxsee='#1' >}})|%
+} % NB. doesn't seem to work if #1 is of the form term1!term2
+
+\renewcommand{\mldefv}[2]{%
+\verb|{{< definer '#1' defstyle=mldefstyle defindex='' idxsee='#2' >}} {{< indexer add '#2' idxstyle=defstyle >}}|%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% mlref %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\mlref}[2][none]{%
+#2 \verb|{{< indexer add '#2' >}}| \ifstrequal{#1}{none}{}{ in #1}%
+}
+
+\renewcommand{\mlrefi}[2][same]{%
+#2 \ifstrequal{#1}{same}{\verb|{{< indexer add '#2' >}}|}{\verb|{{< indexer add '#1' >}}|}%
+}
+
+\renewcommand{\mlrefii}[2][none]{%
+#2 \verb|{{< indexer add '#2' >}}| \ifstrequal{#1}{none}{}{ (#1)}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% person %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newcommand{\person}[2]{#1 #2\index{#2, #1}}
+%\newcommand{\personii}[2]{#2\index{#2, #1}}
+
+\iffalse
+\newcommand{\system}[2][machine learning systems]{\lbclr{\textsf{#2}}\index{#1!#2}\index{#2|see{#1}}}
+\newcommand{\systemi}[2][machine learning systems]{\lbclr{\textsf{#2}}\index{#1!#2}}
+\newcommand{\systemii}[1]{\lbclr{\textsf{#1}}}
+\newcommand{\Prolog}{\system[query languages]{Prolog}}
+\newcommand{\Prologi}{\systemi[query languages]{Prolog}}
+\newcommand{\Prologii}{\systemii{Prolog}}
+
+\newcommand{\lbindex}[2]{\index{#1!\lbclr{#2}}}
+\newcommand{\algindex}[2]{\index{#1 \lbclr{(#2)}}}
+
+%%%\mldefn[index term]{label}{caption}{body}
+\newcommand{\mldefn}[4][same]{
+	\begin{definition}[#3]\label{def::#2}
+		{#4}
+	\end{definition}
+	\ifthenelse{\equal{#1}{same}}
+		{\lbindex{#3}{Definition \ref{def::#2}}}
+		{\ifthenelse{\equal{#1}{none}}
+			{}
+			{\lbindex{#1}{Definition \ref{def::#2}}}
+		}
+}
+
+%%%\mlthm[index term]{label}{caption}{body}
+\newcommand{\mlthm}[4][same]{
+	\begin{theorem}[#3]\label{thm::#2}
+		{#4}
+	\end{theorem}
+	\ifthenelse{\equal{#1}{same}}
+		{\lbindex{#3}{Theorem \ref{thm::#2}}}
+		{\ifthenelse{\equal{#1}{none}}
+			{}
+			{\lbindex{#1}{Theorem \ref{thm::#2}}}
+		}
+}
+
+%%%\mlex[index term]{label}{caption}{body}
+\newcommand{\mlex}[4][same]{
+	\begin{boxshaded}{excolour!5}	
+	\noindent\hrulefill\par
+	\begin{example}[#3]\label{ex::#2}
+		{#4}\NoEndMark
+	\end{example}\vspace{-12pt}\noindent\hrulefill
+	\end{boxshaded}
+	\ifthenelse{\equal{#1}{same}}
+		{\lbindex{#3}{Example \ref{ex::#2}}}
+		{\ifthenelse{\equal{#1}{none}}
+			{}
+			{\lbindex{#1}{Example \ref{ex::#2}}}
+		}
+}
+\fi
