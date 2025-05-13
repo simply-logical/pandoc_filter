@@ -74,59 +74,77 @@
 %%%%%%%%%% person %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\newcommand{\person}[2]{#1 #2\index{#2, #1}}
-%\newcommand{\personii}[2]{#2\index{#2, #1}}
+\renewcommand{\person}[2]{%
+#1 #2 \verb|{{< indexer add '#2' idxsuffix='#1' >}}|%
+}
 
-\iffalse
-\newcommand{\system}[2][machine learning systems]{\lbclr{\textsf{#2}}\index{#1!#2}\index{#2|see{#1}}}
-\newcommand{\systemi}[2][machine learning systems]{\lbclr{\textsf{#2}}\index{#1!#2}}
-\newcommand{\systemii}[1]{\lbclr{\textsf{#1}}}
-\newcommand{\Prolog}{\system[query languages]{Prolog}}
-\newcommand{\Prologi}{\systemi[query languages]{Prolog}}
-\newcommand{\Prologii}{\systemii{Prolog}}
+\renewcommand{\personii}[2]{%
+#2 \verb|{{< indexer add '#2' idxsuffix='#1' >}}|%
+}
 
-\newcommand{\lbindex}[2]{\index{#1!\lbclr{#2}}}
-\newcommand{\algindex}[2]{\index{#1 \lbclr{(#2)}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% system %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\system}[2][machine learning systems]{%
+#2 \verb|{{< indexer add '#1' idxnesting='#2' >}}| \verb|{{< indexer add '#2' idxsee='#1' >}}|%
+}
+
+\renewcommand{\systemi}[2][machine learning systems]{%
+#2 \verb|{{< indexer add '#1' idxnesting='#2' >}}|%
+}
+
+\renewcommand{\systemii}[1]{%
+#1%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Prolog %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\Prolog}{\system[query languages]{Prolog}}
+\renewcommand{\Prologi}{\systemi[query languages]{Prolog}}
+\renewcommand{\Prologii}{\systemii{Prolog}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% lb/alg index %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\lbindex}[2]{%
+\verb|{{< indexer add '#1' idxnesting='#2' >}}|%
+}
+
+\renewcommand{\algindex}[2]{%
+\verb|{{< indexer add '#1 (#2)' >}}|%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% environments %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%\mldefn[index term]{label}{caption}{body}
 \newcommand{\mldefn}[4][same]{
-	\begin{definition}[#3]\label{def::#2}
-		{#4}
-	\end{definition}
-	\ifthenelse{\equal{#1}{same}}
-		{\lbindex{#3}{Definition \ref{def::#2}}}
-		{\ifthenelse{\equal{#1}{none}}
-			{}
-			{\lbindex{#1}{Definition \ref{def::#2}}}
-		}
+  \begin{definition}[#3]\label{def-#2}
+    \subsection{#3}
+    {#4}
+  \end{definition}
+  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='Definition [-@def-#2]' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='Definition [-@def-#2]' >}}|}}
 }
 
 %%%\mlthm[index term]{label}{caption}{body}
 \newcommand{\mlthm}[4][same]{
-	\begin{theorem}[#3]\label{thm::#2}
-		{#4}
-	\end{theorem}
-	\ifthenelse{\equal{#1}{same}}
-		{\lbindex{#3}{Theorem \ref{thm::#2}}}
-		{\ifthenelse{\equal{#1}{none}}
-			{}
-			{\lbindex{#1}{Theorem \ref{thm::#2}}}
-		}
+  \begin{theorem}[#3]\label{thm-#2}
+    \subsection{#3}
+    {#4}
+  \end{theorem}
+  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='Theorem [-@thm-#2]' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='Theorem [-@thm-#2]' >}}|}}
 }
 
 %%%\mlex[index term]{label}{caption}{body}
 \newcommand{\mlex}[4][same]{
-	\begin{boxshaded}{excolour!5}	
-	\noindent\hrulefill\par
-	\begin{example}[#3]\label{ex::#2}
-		{#4}\NoEndMark
-	\end{example}\vspace{-12pt}\noindent\hrulefill
-	\end{boxshaded}
-	\ifthenelse{\equal{#1}{same}}
-		{\lbindex{#3}{Example \ref{ex::#2}}}
-		{\ifthenelse{\equal{#1}{none}}
-			{}
-			{\lbindex{#1}{Example \ref{ex::#2}}}
-		}
+  \begin{example}[#3]\label{exm-#2}
+    \subsection{#3}
+    {#4}
+  \end{example}
+  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='Example [-@exm-#2]' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='Example [-@exm-#2]' >}}|}}
 }
-\fi
