@@ -148,3 +148,23 @@
   \end{example}
   \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='Example [-@exm-#2]' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='Example [-@exm-#2]' >}}|}}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% mlbox %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% \mlbox[fontsize]{label}{caption}{text}
+\renewcommand{\mlbox}[4][same]{
+  \begin{note}\label{mlb-#2}
+    \subsection{#3}
+    {#4}
+  \end{note}
+}
+
+\renewcommand{\mlboxii}[4][same]{%
+  \mlbox[#1]{#2}{#3}{#4}
+}
+
+\renewcommand{\mlboxiii}[4][same]{%
+  \mlbox[#1]{#2}{#3}{#4}
+}
