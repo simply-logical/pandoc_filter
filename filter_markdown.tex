@@ -126,27 +126,27 @@
 \renewcommand{\mldefn}[4][same]{
   \begin{definition}[#3]\label{def-#2}
     \subsection{#3}
-    {#4}
+    #4
   \end{definition}
-  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='Definition [-@def-#2]' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='Definition [-@def-#2]' >}}|}}
+  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='@def-#2' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='@def-#2' >}}|}}
 }
 
 %%%\mlthm[index term]{label}{caption}{body}
 \renewcommand{\mlthm}[4][same]{
   \begin{theorem}[#3]\label{thm-#2}
     \subsection{#3}
-    {#4}
+    #4
   \end{theorem}
-  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='Theorem [-@thm-#2]' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='Theorem [-@thm-#2]' >}}|}}
+  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='@thm-#2' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='@thm-#2' >}}|}}
 }
 
 %%%\mlex[index term]{label}{caption}{body}
 \renewcommand{\mlex}[4][same]{
   \begin{example}[#3]\label{exm-#2}
     \subsection{#3}
-    {#4}
+    #4
   \end{example}
-  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='Example [-@exm-#2]' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='Example [-@exm-#2]' >}}|}}
+  \ifstrequal{#1}{same}{\verb|{{< indexer add '#3' idxnesting='@exm-#2' >}}|}{\ifstrequal{#1}{none}{}{\verb|{{< indexer add '#1' idxnesting='@exm-#2' >}}|}}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -155,7 +155,7 @@
 
 %%% \mlbox[fontsize]{label}{caption}{text}
 \renewcommand{\mlbox}[4][same]{
-  \begin{note}\label{mlb-#2}
+  \begin{note}\label{box-#2}
     \subsection{#3}
     {#4}
   \end{note}
@@ -167,4 +167,226 @@
 
 \renewcommand{\mlboxiii}[4][same]{%
   \mlbox[#1]{#2}{#3}{#4}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% referencing %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\figref}[2][]{\ref{fig-#2}#1}
+\renewcommand{\exref}[1]{\ref{exm-#1}}
+\renewcommand{\defref}[1]{\ref{def-#1}}
+\renewcommand{\boxref}[1]{\ref{box-#1}}
+\renewcommand{\tabref}[2][]{\ref{tbl-#2}#1}
+\renewcommand{\partref}[1]{\ref{part-#1}}
+\renewcommand{\chapref}[2][Chapter]{\ifstrequal{#2}{prologue}{the \hyperref[sec-#2]{Prologue}}{\ifstrequal{#2}{epilogue}{the \hyperref[sec-#2]{Epilogue}}{#1 \ref{sec-#2}}}}
+\renewcommand{\chaprefs}[2]{\ref{chap-#1}--\ref{chap-#2}}
+\renewcommand{\sectref}[2][\chaplabel]{\ref{sec-#1-#2}}
+\renewcommand{\sectrefii}[2][Section]{\ref{sec-\chaplabel-#2}}
+\renewcommand{\fnref}[1]{\ref{fn-#1}}
+\renewcommand{\eqnref}[1]{\ref{eq-#1}}
+\renewcommand{\eqnrefs}[2]{\ref{eq-#1}--\ref{eq-#2}}
+\renewcommand{\algref}[1]{\ref{algo-#1}}
+\renewcommand{\algrefii}[1]{\ref{algo-#1}}
+\renewcommand{\thmref}[1]{\ref{thm-#1}}
+\renewcommand{\pgref}[2][pg]{\pageref{#1-#2}}
+\renewcommand{\figrefp}[1]{\figref{#1} on \pgref[fig]{#1}}
+ \renewcommand{\exrefp}[1]{\exref{#1} on \pgref[ex]{#1}}
+\renewcommand{\defrefp}[1]{\defref{#1} on \pgref[def]{#1}}
+\renewcommand{\boxrefp}[1]{\boxref{#1} on \pgref[box]{#1}}
+\renewcommand{\tabrefp}[1]{\tabref{#1} on \pgref[tab]{#1}}
+ \renewcommand{\fnrefp}[1]{\fnref{#1} on \pgref[fn]{#1}}
+\renewcommand{\eqnrefp}[1]{\eqnref{#1} on \pgref[eq]{#1}}
+\renewcommand{\algrefp}[1]{\algref{#1} on \pgref[alg]{#1}}
+\renewcommand{\thmrefp}[1]{\thmref{#1} on \pgref[thm]{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% raw indexing %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\index}[1]{\verb|{{< indexer add '#1' >}}|}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% bold math %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\vmu}{{\boldsymbol{\mu}}}
+\renewcommand{\val}{{\boldsymbol{\alpha}}}
+\renewcommand{\vbe}{{\boldsymbol{\beta}}}
+\renewcommand{\vep}{{\boldsymbol{\epsilon}}}
+\renewcommand{\vtau}{{\boldsymbol{\tau}}}
+\renewcommand{\vth}{{\boldsymbol{\theta}}}
+\renewcommand{\vSi}{{\boldsymbol{\Sigma}}}
+\renewcommand{\kernel}{{\boldsymbol{\kappa}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% bold math %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\mathsf}[1]{\textsf{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% ml algorithm %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\alg}[1]{\rlclr{\textsf{#1}}}
+
+%%% \mlalg[pos]{label}{name}{caption}{input}{output}{body}
+\renewcommand{\mlalg}[7][!b]{%
+::: \{#algo-#2\}
+
+\verb|###pseudocode| \alg{#3} -- #4.
+
+\lbindex{#3}{@algo-#2}
+
+\verb|```pseudocode|
+\begin{verbatim}
+\Input{#5.}%
+\Output{#6.}%
+#7
+\end{verbatim}
+\verb|pseudocode```|
+
+:::
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% side-by-side figures %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\mlfigp}[3][width=\linewidth]{%
+\begin{figure}
+\centering
+\includegraphics[#1]{figures/#2} 
+\caption{#3}\label{fig-#2}
+\end{figure}%
+}
+
+%%% \mlfigii[size]{label}{left caption}{right caption}
+\renewcommand{\mlfigii}[4][width=0.45\linewidth]{%
+::: \{#fig-#2\}
+
+\verb|###pseudocode| \lbclr{\textbf{\leftlabel}} #3 \lbclr{\textbf{\rightlabel}} #4
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-left}
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-right} 
+\end{figure}%
+
+:::
+}
+
+%%% \mlfigiix{size1}{size2}{label}{left caption}{right caption}
+\renewcommand{\mlfigiix}[5]{%
+::: \{#fig-#3\}
+
+\verb|###pseudocode| \lbclr{\textbf{\leftlabel}} #4 \lbclr{\textbf{\rightlabel}} #5
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#3-left}
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#2]{figures/#3-right} 
+\end{figure}%
+
+:::
+}
+
+%%% \mlfigiii[size]{label}{left caption}{middle caption}{right caption}
+\renewcommand{\mlfigiii}[5][width=0.29\linewidth]{%
+::: \{#fig-#2\}
+
+\verb|###pseudocode| \lbclr{\textbf{\leftlabel}} #3 \lbclr{\textbf{\middlelabel}} #4 \lbclr{\textbf{\rightlabel}} #5
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-left}
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-middle} 
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-right} 
+\end{figure}%
+
+:::
+}
+
+%%% \mlfigiv[size]{label}{caption}
+\renewcommand{\mlfigiv}[3][width=0.35\linewidth]{%
+::: \{#fig-#2\}
+
+\verb|###pseudocode| #3
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-a} 
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-b} 
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-c} 
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-d} 
+\end{figure}%
+
+:::
+}
+
+%%% \mlfigtb[size]{label}{left caption}{right caption}
+\renewcommand{\mlfigtb}[4][width=0.7\linewidth]{%
+::: \{#fig-#2\}
+
+\verb|###pseudocode| \lbclr{\textbf{\toplabel}} #3 \lbclr{\textbf{\bottomlabel}} #4
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-left}
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#2-right} 
+\end{figure}%
+
+:::
+}
+
+%%% \mlfigtbx{size1}{size2}{label}{left caption}{right caption}
+\renewcommand{\mlfigtbx}[5]{%
+::: \{#fig-#3\}
+
+\verb|###pseudocode| \lbclr{\textbf{\toplabel}} #4 \lbclr{\textbf{\bottomlabel}} #5
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#1]{figures/#3-left}
+\end{figure}%
+
+\begin{figure}[!t]
+\centering
+\includegraphics[#2]{figures/#3-right} 
+\end{figure}%
+
+:::
 }

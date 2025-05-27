@@ -4,16 +4,34 @@ Custom pandoc filters for converting LaTeX to quarto markdown.
 
 ## Usage
 
-To convert:
-
-```bash
-pandoc test.tex -f latex+latex_macros -t markdown --lua-filter=filter_markdown.lua --wrap=preserve -o test.md
-```
-
 To see the pandoc abstract syntax tree (AST):
 
 ```bash
 pandoc test.tex -f latex+raw_tex -t native -o test.txt
+```
+
+---
+
+To convert, first inject
+```latex
+\input{filter_markdown}
+```
+**just above** `\begin{document}` into the LaTeX file. Then, execute
+```bash
+pandoc test.tex -f latex+latex_macros -t markdown --lua-filter=filter_markdown.lua --wrap=preserve -o test.md
+```
+
+You can convert multiple files (do not specify the `.tex` extension) like so
+```bash
+batch=(
+    file1
+    file2
+    file3
+    ...
+)
+for item in "${batch[@]}"; do
+    pandoc "${item}.tex" -f latex+latex_macros -t markdown --lua-filter=filter_markdown.lua --wrap=preserve -o "${item}.qmd"
+done
 ```
 
 ## Filters List
@@ -26,9 +44,27 @@ Replaces LaTeX `\customidx{param}` with markdown `{{< indexer add param >}}`.
 
 Replaces `mlind` and `mldef` LaTeX commands with the corresponding markdown syntax.
 
-IMPORTANT: The following code needs to be injected into the LaTeX file preamble for the filter to work:
-```latex
-\input{filter_markdown.tex}
+## Build commands
+
+### Render the whole project
+
+From the root directory of the repository render to LaTeX:
+```bash
+quarto render --to=latex
+```
+
+### Render a specific file
+
+From the root directory of the repository render to LaTeX:
+```bash
+quarto render ./file.qmd --log-level=info --to=html
+```
+
+### Preview
+
+Open the file:
+```bash
+open _book/file.html
 ```
 
 ## Resources

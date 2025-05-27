@@ -15,6 +15,12 @@ end
 function Code(el)
   if string.match(el.text, "^[(]?{{< ") and string.match(el.text, " >}}[)]?$") then
     return pandoc.RawInline('markdown', el.text)
+  elseif string.match(el.text, "^```pseudocode$") then
+    return pandoc.RawInline('markdown', "```pseudocode")
+  elseif string.match(el.text, "^pseudocode```$") then
+    return pandoc.RawInline('markdown', "```")
+  elseif string.match(el.text, "^###pseudocode$") then
+    return pandoc.RawInline('markdown', "###")
   else
     return el
   end
@@ -26,7 +32,7 @@ function Link(el)
     if (attr_key == "reference-type" and attr == "ref") then
       local label = el.target:match("^#(.+)$")
       if label then
-        return pandoc.RawInline('markdown', '[-@' .. label .. ']')
+        return pandoc.RawInline('markdown', '@' .. label)
       else
         print("No section label found for: " .. el.target)
       end
